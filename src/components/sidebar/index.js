@@ -6,12 +6,22 @@ import { FaGripfire, FaPlay } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
 import { IoLibrary } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
+import apiClient from "../../sportify";
 
-export default function sidebar() {
-  return <div className='sidebar-container'>
-    <img src='https://via.placeholder.com/150' className='profile-img' alt='Profile-image' />
-    <div>
-    <SidebarButton title="Feed" to="/feed" icon={<MdSpaceDashboard />} />
+export default function Sidebar() {
+  const [image, setImage] = useState(
+    "https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png"
+  );
+  useEffect(() => {
+    apiClient.get("me").then((response) => {
+      setImage(response.data.images[0].url);
+    });
+  }, []);
+  return (
+    <div className="sidebar-container">
+      <img src={image} className="profile-img" alt="profile" />
+      <div>
+        <SidebarButton title="Feed" to="/feed" icon={<MdSpaceDashboard />} />
         <SidebarButton title="Trending" to="/trending" icon={<FaGripfire />} />
         <SidebarButton title="Player" to="/player" icon={<FaPlay />} />
         <SidebarButton
@@ -19,9 +29,9 @@ export default function sidebar() {
           to="/favorites"
           icon={<MdFavorite />}
         />
-         <SidebarButton title="Library" to="/" icon={<IoLibrary />} />
+        <SidebarButton title="Library" to="/" icon={<IoLibrary />} />
       </div>
       <SidebarButton title="Sign Out" to="" icon={<FaSignOutAlt />} />
-    
-  </div>;
+    </div>
+  );
 }
