@@ -10,7 +10,7 @@ import apiClient from "../../sportify";
 
 export default function Sidebar() {
   const [image, setImage] = useState(
-    "https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png"
+    "https://via.placeholder.com/150x150"
   );
   useEffect(() => {
     apiClient.get("me").then((response) => {
